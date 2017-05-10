@@ -20,6 +20,9 @@ This project is enhanced version of the Project 1. The advancement is achieved b
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
+The final code is in ```P4_KemalTepe_Movie.ipynb```. Some of the intermediate steps is provided in ```advanced_lane_detection_ket.ipynb```. Some of the utility functions are provided in ```ket_utilityP4.py```.
+
+
 ### 1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
 The code below is used to either calculate the calibration parameters or obtain the calibration parameters from pickle file. We do not need to run the calibration routine everytime since we assume we are using the same camera for all images and videos.
 
@@ -186,11 +189,11 @@ The following function ```unwrap(undistorted_img, left_fitx, right_fitx, ploty, 
 ### 8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 Following video file provides output of the code for the less challenging project video file.
-[link to my video result](./P4_ket_output.mp4) 
+[link to project video result](./P4_ket_output.mp4) 
 
 The challenge video file was processed and the output is also provided below. This has a partial success. **I used lane_base checking and curvature checking mechanisms in my code. However, number of other techniques mentioned in the guideline should be implemented more accurate and robust lane detection in the challenge video.**
 
-[link to my video result](./P4_ket_out_challenge.mp4) 
+[link to challenge video result](./P4_ket_out_challenge.mp4) 
 
 
 ### Discussions
