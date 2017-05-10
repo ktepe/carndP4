@@ -63,6 +63,7 @@ def get_calibration_parameters():
     return mtx, dist
 ```
 
+
 Below figure shows an checkerboard image before and after calibration:
 
 ![Calibration image with checkerboard](./output_images/calibration_undistorted_calibarion2.png) *one of the calibration images before and after calibration.* 
@@ -119,7 +120,7 @@ Undistorted and wrapped images are shown below.
 Following pipeline was used to transform warped image to warped with only lanes binary image. In short, gaussian blurring is used to smooth the image, then sobel gradient filters were applied as well as S channel from HLS format. Finding right thresholds were critical but initial starting points obtained from the Udacity were pretty helpful.
 
 
-```python
+```Python
 
 def pipeline(img):
     # Gaussian Blur
@@ -149,11 +150,22 @@ def pipeline(img):
     color_binary[(s_binary > 0) | (combined > 0)] = 1
     
     return color_binary
-    ```
-    
 
+```
+
+This pipeline yielded the following result from a warped image.
+
+![undistorted and wraped image](./output_images/warped_binarywarped.png) *Warped input and pipelined binary output with lanes only.
 
 ### 5. Detect lane pixels and fit to find the lane boundary.
+
+The binary warped image is inputted to ```def get_lines (binary_warped)``` function to obtain the lines using histogram and polynomial fitting. Code cell 8 in Jupyter Notebook provides the details of this processing.
+
+![undistorted and wraped image](./output_images/histogram_ofwarped.png) *Histogram of the warped binary image. The lane starting points in the image is clearly visible. 
+
+From the base points the sliding windows based histogram is used to obtain the mid points and these points are fitted by 2nd degree polynomial. The resulting image with only fitted lines is given below.
+
+![undistorted and wraped image](./output_images/lanes_only_fitted.png) *Polynomially fitted lines.
 
 ### 6. Determine the curvature of the lane and vehicle position with respect to center.
 
