@@ -112,11 +112,45 @@ def get_M_Minv():
 
 Undistorted and wrapped images are shown below.
 
-![undistorted and wraped image](./output_images/undistorted_road_sign_warpedlanes.png) *Close up of undistored Road sign image, notice the road signs are straight as opposed to curved in the original image.* 
-
-
+![undistorted and wraped image](./output_images/undistorted_road_sign_warpedlanes.png) *undistored Road sign image and its birds-eye view warped image.* 
 
 ### 4. Use color transforms, gradients, etc., to create a thresholded binary image.
+
+Following pipeline was used to transform warped image to warped with only lanes binary image. In short, gaussian blurring is used to smooth the image, then sobel gradient filters were applied as well as S channel from HLS format. Finding right thresholds were critical but initial starting points obtained from the Udacity were pretty helpful.
+
+
+```python
+
+def pipeline(img):
+    # Gaussian Blur
+    kernel_size = 7
+    img = cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
+    # S channel 
+    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
+    s = hls[:,:,2]
+    # Grayscale image
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    # Sobel kernel size
+    ksize = 7
+    # Thresholding functions for each case
+    gradx = abs_sobel_thresh(gray, orient='x', sobel_kernel=ksize, thresh=(10, 255))
+    grady = abs_sobel_thresh(gray, orient='y', sobel_kernel=ksize, thresh=(60, 255))
+    mag_binary = mag_thresh(gray, sobel_kernel=ksize, mag_thresh=(40, 255))
+    dir_binary = dir_threshold(gray, sobel_kernel=ksize, thresh=(.65, 1.05))
+    # Combine all the thresholded images
+    combined = np.zeros_like(dir_binary)
+    combined[((gradx == 1) & (grady == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1
+    # Threshold color channel
+    s_binary = np.zeros_like(combined)
+    s_binary[(s > 160) & (s < 255)] = 1
+    # Stack each channel to view their individual contributions in green and blue respectively
+    # This returns a stack of the two binary images, whose components you can see as different colors    
+    color_binary = np.zeros_like(combined)
+    color_binary[(s_binary > 0) | (combined > 0)] = 1
+    
+    return color_binary
+    ```
+    
 
 
 ### 5. Detect lane pixels and fit to find the lane boundary.
