@@ -1,3 +1,13 @@
+# Advanced Lane Finding
+
+Please refer to [Project4_AdvancedLaneFinding_Report_KemalTepe](./Project4_AdvancedLaneFinding_Report_KemalTepe.md) for the implementation details of the code found in this folder.
+
+Rest of the document is same as the original explanation provided by the Udacity to the students.
+
+Kemal Tepe.
+
+
+
 ## Advanced Lane Finding
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
