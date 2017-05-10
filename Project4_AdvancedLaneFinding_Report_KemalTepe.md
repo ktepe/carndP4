@@ -188,7 +188,8 @@ The following function ```unwrap(undistorted_img, left_fitx, right_fitx, ploty, 
 Following video file provides output of the code for the less challenging project video file.
 [link to my video result](./P4_ket_output.mp4) 
 
-The challenge video file was processed and the output is also provided below. This has a partial success. I used lane_base checking and curvature checking mechanisms in my code. However, number of other techniques mentioned in the guideline should be implemented more accurate and robust lane detection in the challenge video.
+The challenge video file was processed and the output is also provided below. This has a partial success. **I used lane_base checking and curvature checking mechanisms in my code. However, number of other techniques mentioned in the guideline should be implemented more accurate and robust lane detection in the challenge video.**
+
 [link to my video result](./P4_ket_out_challenge.mp4) 
 
 
@@ -200,7 +201,10 @@ Number of problems were encountered during the project. Finding right perpective
 
 The finding right mix in the pipeline from variety of options, sobels gradients, color challens, as well as their threshold values took some time to fine tune and obtain the right mix. 
 
-Finally line fitting in the challenge video was difficult. That's why Line() class was utilized to overcome some challenges.
+Finally line fitting in the challenge video was difficult. That's why **Line()** class was utilized to overcome some challenges. 
+
+Also, heuristic methods works at some level, a more systematic approach would need longer time to research and implement them.
+
 
 #### 2. Where will your pipeline likely fail?  What could you do to make it more robust?
 
