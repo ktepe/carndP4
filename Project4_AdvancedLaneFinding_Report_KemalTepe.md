@@ -8,11 +8,8 @@
 
 This project is enhanced version of the Project 1. The advancement is achieved by obtaining undistorted images by using camera calibaration parameters. Another enhancement is done by obtaining perspective transform of the lanes. With that, a birds eye view of the road is obtained. Birds eye image is processed by a pipepline of gradient, color filtering and thresholding methods. This pipeline returned an image which enabled us to identify lanes more accurately by obtaining some of the road features such as curvature of lanes, parallelizm, spacing between the lanes as well as polynomial fitting. With these features, the lanes are fairly easily and accurately identified. Then these lanes are projected back using reverse perpective onto the undistorted images and highlighted on the lane. Another feature was to use Line() class to keep important features of the process for sanity checking as well as bridge the features between the frames. This allowed us to have use the methods more accurately and reliably in more challenging scenarios such as in challenge video. The code presented in this folder successfully identify the lane in the project video. In the challenge video process has also identified lanes with some success. This can be further improved by using all the methods and parameters in the Line() class in the future.
 
----
 
-**Advanced Lane Finding Project**
-
-The goals / steps of this project are the following:
+### The goals / steps of this project are the following:
 
 * Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
 * Apply a distortion correction to raw images.
@@ -22,6 +19,23 @@ The goals / steps of this project are the following:
 * Determine the curvature of the lane and vehicle position with respect to center.
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
+
+### 1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
+
+### 2. Apply a distortion correction to raw images.
+
+### 3. Use color transforms, gradients, etc., to create a thresholded binary image.
+
+### 4. Apply a perspective transform to rectify binary image ("birds-eye view").
+
+
+### 5. Detect lane pixels and fit to find the lane boundary.
+
+### 6. Determine the curvature of the lane and vehicle position with respect to center.
+
+### 7. Warp the detected lane boundaries back onto the original image.
+
+### 8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 [//]: # (Image References)
 
