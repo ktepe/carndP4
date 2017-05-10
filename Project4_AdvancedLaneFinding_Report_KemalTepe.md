@@ -21,6 +21,57 @@ This project is enhanced version of the Project 1. The advancement is achieved b
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 ### 1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
+The code below is used to either calculate the calibration parameters or obtain the calibration parameters from pickle file. We do not need to run the calibration routine everytime since we assume we are using the same camera for all images and videos.
+
+```python
+def get_calibration_parameters():
+    #get the camera calibration parameters
+    #either from the file or from image processing 
+    if (os.path.isfile('P4CameraParam.p'))==True:
+        # read python dict back from the file
+        print('Reading Camera Parameters from file')
+        pickle_file = open('P4CameraParam.p', 'rb')
+        p4dict = pickle.load(pickle_file)
+        ret=p4dict['ret']
+        mtx=p4dict['mtx']
+        dist=p4dict['dist']
+        rvecs=p4dict['rvecs']
+        tvecs=p4dict['tvecs']
+        nx=p4dict['nx']
+        nx=p4dict['ny']
+        pickle_file.close()
+    else:
+        print('Camera Param file not found!!')
+        #number of corners in x and y directions
+        nx=9
+        ny=6
+        #read the images
+        cal_files='./camera_cal/calibration*.jpg'
+        image_files=glob.glob(cal_files)
+        #just to get image size
+        dummy_img=cv2.imread('./camera_cal/calibration1.jpg')
+        img_size=(dummy_img.shape[1], dummy_img.shape[0])
+        #get the image and object points using utility function from ket_utilityP4
+        imgpoints, objpoints=get_imagepoints_objpoints(image_files, gridsize=(nx, ny), debug_prt=0)
+        ret, mtx, dist, rvecs, tvecs=cv2.calibrateCamera(objpoints, imgpoints,img_size, None, None)
+        p4dict = {'ret': ret, 'mtx': mtx, 'dist': dist, 'rvecs': rvecs, 'tvecs': tvecs, 'nx': nx, 'ny': ny}
+        output = open('P4CameraParam.p', 'wb')
+
+        pickle.dump(p4dict, output)
+        output.close()
+    
+    return mtx, dist
+```
+
+Below figure shows an checkerboard image before and after calibration:
+
+![Calibration image with checkerboard](./output_images/calibration_undistorted_calibarion2.png) *one of the calibration images before and after calibration.* 
+
+![Road sign before and after calibration](./output_images/roadsign_undistored_road_sign.png) *Road sign image before and after calibration.* 
+
+![Road sign before and after calibration](./output_images/undistorted_signs_vehicles.png) *Close up of undistored Road sign image, notice the road signs are straight as opposed to curved in the original image.* 
+
+
 
 ### 2. Apply a distortion correction to raw images.
 
