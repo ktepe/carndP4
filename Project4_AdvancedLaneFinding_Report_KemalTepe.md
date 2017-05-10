@@ -191,7 +191,7 @@ The following function ```unwrap(undistorted_img, left_fitx, right_fitx, ploty, 
 Following video file provides output of the code for the less challenging project video file.
 [link to project video result](./P4_ket_output.mp4) 
 
-The challenge video file was processed and the output is also provided below. This has a partial success. **I used lane_base checking and curvature checking mechanisms in my code. However, number of other techniques mentioned in the guideline should be implemented more accurate and robust lane detection in the challenge video.**
+The challenge video file was processed and the output is also provided below. This has a partial success. **I used lane_base checking and curvature checking mechanisms in my code. However, number of other techniques mentioned in the guideline should be implemented more accurate and robust lane detection in the challenge video.** However, more work and updates are needed in the code to claim robust operation.
 
 [link to challenge video result](./P4_ket_out_challenge.mp4) 
 
@@ -211,7 +211,7 @@ Also, heuristic methods works at some level, a more systematic approach would ne
 
 #### 2. Where will your pipeline likely fail?  What could you do to make it more robust?
 
-A robust lane detection algorihtm must utilize adaptive mechanisms, for example obtaining perspective transform matrix obtained from straigth lines and applying to curved lines is not the best way to have robust system. That is why some of the mechanisms mentioned in the imporvement section of the project guidelines, such as smoothing, lane base detection, look ahead filter etc. Given time, these will be implemented as a future work.
+A robust lane detection algorihtm must utilize adaptive mechanisms, for example obtaining perspective transform matrix obtained from straigth lines and applying to curved lines is not the best way to have robust system. That is why some of the mechanisms mentioned in the imporvement section of the project guidelines, such as smoothing, lane base detection, look ahead filter etc. Given time, these will be implemented as a future work. My partial heurictic has partially worked and i will work on the other aspects in the future.
 
 It was an another exciting project. I enjoyed however, finetuning, and finding right mix take time and effort to further enhance this project in the future.
 
