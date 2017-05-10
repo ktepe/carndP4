@@ -6,14 +6,14 @@
 
 ### Summary: 
 
-This project is enhanced version of the Project 1. The advancement is achieved by obtaining undistorted images by using camera calibaration parameters. Another enhancement is done by obtaining perspective transform of the lanes. With that, a birds eye view of the road is obtained. Birds eye image is processed by a pipepline of gradient, color filtering and thresholding methods. This pipeline returned an image which enabled us to identify lanes more accurately by obtaining some of the road features such as curvature of lanes, parallelizm, spacing between the lanes as well as polynomial fitting. With these features, the lanes are fairly easily and accurately identified. Then these lanes are projected back using reverse perpective onto the undistorted images and highlighted on the lane. Another feature was to use Line() class to keep important features of the process for sanity checking as well as bridge the features between the frames. This allowed us to have use the methods more accurately and reliably in more challenging scenarios such as in challenge video. The code presented in this folder successfully identify the lane in the project video. In the challenge video process has also identified lanes with some success. This can be further improved by using all the methods and parameters in the Line() class in the future.
+This project is enhanced version of the Project 1. The advancement is achieved by obtaining undistorted images by using camera calibration parameters. Another enhancement is done by obtaining perspective transform of the lanes. With that, a birds eye view of the road is obtained. Birds eye image is processed by a pipeline of gradient, color filtering and threshold methods. This pipeline returned an image which enabled us to identify lanes more accurately by obtaining some of the road features such as curvature of lanes, parallelism, spacing between the lanes as well as polynomial fitting. With these features, the lanes are fairly easily and accurately identified. Then these lanes are projected back using reverse perspective onto the undistorted images and highlighted on the lane. Another feature was to use Line() class to keep important features of the process for sanity checking as well as bridge the features between the frames. This allowed us to have use the methods more accurately and reliably in more challenging scenarios such as in challenge video. The code presented in this folder successfully identify the lane in the project video. In the challenge video process has also identified lanes with some success. This can be further improved by using all the methods and parameters in the Line() class in the future.
 
 
 ### The goals / steps of this project are the following:
 
 * Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
 * Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
+* Use color transforms, gradients, etc., to create a threshold binary image.
 * Apply a perspective transform to rectify binary image ("birds-eye view").
 * Detect lane pixels and fit to find the lane boundary.
 * Determine the curvature of the lane and vehicle position with respect to center.
@@ -24,7 +24,7 @@ The final code is in ```P4_KemalTepe_Movie.ipynb```. Some of the intermediate st
 
 
 ### 1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-The code below is used to either calculate the calibration parameters or obtain the calibration parameters from pickle file. We do not need to run the calibration routine everytime since we assume we are using the same camera for all images and videos.
+The code below is used to either calculate the calibration parameters or obtain the calibration parameters from pickle file. We do not need to run the calibration routine every time since we assume we are using the same camera for all images and videos.
 
 ```python
 def get_calibration_parameters():
@@ -82,7 +82,7 @@ By using this the Road sign sample image is processed. The before and after imag
 
 ![Road sign before and after calibration](./output_images/roadsign_undistored_road_sign.png) *Road sign image before and after calibration.* 
 
-![Road sign before and after calibration](./output_images/undistorted_signs_vehicles.png) *Close up of undistored Road sign image, notice the road signs are straight as opposed to curved in the original image.* 
+![Road sign before and after calibration](./output_images/undistorted_signs_vehicles.png) *Close up of undistorted Road sign image, notice the road signs are straight as opposed to curved in the original image.* 
 
 ### 3. Apply a perspective transform to rectify binary image ("birds-eye view").
 
@@ -120,7 +120,7 @@ Undistorted and wrapped images are shown below.
 
 ### 4. Use color transforms, gradients, etc., to create a thresholded binary image.
 
-Following pipeline was used to transform warped image to warped with only lanes binary image. In short, gaussian blurring is used to smooth the image, then sobel gradient filters were applied as well as S channel from HLS format. Finding right thresholds were critical but initial starting points obtained from the Udacity were pretty helpful.
+Following pipeline was used to transform warped image to warped with only lanes binary image. In short, Gaussian blurring is used to smooth the image, then sobel gradient filters were applied as well as S channel from HLS format. Finding right thresholds were critical but initial starting points obtained from the Udacity were pretty helpful.
 
 
 ```Python
@@ -162,7 +162,7 @@ This pipeline yielded the following result from a warped image.
 
 ### 5. Detect lane pixels and fit to find the lane boundary.
 
-The binary warped image is inputted to ```def get_lines (binary_warped)``` function to obtain the lines using histogram and polynomial fitting. Code cell 8 in Jupyter Notebook provides the details of this processing.
+The binary warped image is input to ```def get_lines (binary_warped)``` function to obtain the lines using histogram and polynomial fitting. Code cell 8 in Jupyter Notebook provides the details of this processing.
 
 ![undistorted and wraped image](./output_images/histogram_ofwarped.png) *Histogram of the warped binary image. The lane starting points in the image is clearly visible. 
 
@@ -179,7 +179,7 @@ Curvature and vehicle position on the lane was obtained using the following func
 
 ### 7. Warp the detected lane boundaries back onto the original image.
 
-Finally lanes identified from the warped image is projected back to unsitorted image using inverse transform matrix (Minv) using same corners for source and destination. The area between the accurately identified the lanes are highligted on the images as well as the offset and curvature information. 
+Finally lanes identified from the warped image is projected back to undistorted image using inverse transform matrix (Minv) using same corners for source and destination. The area between the accurately identified the lanes are highlighted on the images as well as the offset and curvature information. 
 
 The following function ```unwrap(undistorted_img, left_fitx, right_fitx, ploty, Minv)``` uses 
 
@@ -200,9 +200,9 @@ The challenge video file was processed and the output is also provided below. Th
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  
 
-Number of problems were encountered during the project. Finding right perpective transform matrix was important for the successful warping and unwarping. The perpective transform was also important for lane detection process since uncorrect warping resulted erroneous histogram. 
+Number of problems were encountered during the project. Finding right perspective transform matrix was important for the successful warping and unwarping. The perspective transform was also important for lane detection process since uncorrect warping resulted erroneous histogram. 
 
-The finding right mix in the pipeline from variety of options, sobels gradients, color challens, as well as their threshold values took some time to fine tune and obtain the right mix. 
+The finding right mix in the pipeline from variety of options, sobels gradients, color channels, as well as their threshold values took some time to fine tune and obtain the right mix. 
 
 Finally line fitting in the challenge video was difficult. That's why **Line()** class was utilized to overcome some challenges. 
 
@@ -211,9 +211,9 @@ Also, heuristic methods works at some level, a more systematic approach would ne
 
 #### 2. Where will your pipeline likely fail?  What could you do to make it more robust?
 
-A robust lane detection algorihtm must utilize adaptive mechanisms, for example obtaining perspective transform matrix obtained from straigth lines and applying to curved lines is not the best way to have robust system. That is why some of the mechanisms mentioned in the imporvement section of the project guidelines, such as smoothing, lane base detection, look ahead filter etc. Given time, these will be implemented as a future work. My partial heurictic has partially worked and i will work on the other aspects in the future.
+A robust lane detection algorithm must utilize adaptive mechanisms, for example obtaining perspective transform matrix obtained from straight lines and applying to curved lines is not the best way to have robust system. That is why some of the mechanisms mentioned in the improvement section of the project guidelines, such as smoothing, lane base detection, look ahead filter etc. Given time, these will be implemented as a future work. My partial heuristic has partially worked and i will work on the other aspects in the future.
 
-It was an another exciting project. I enjoyed however, finetuning, and finding right mix take time and effort to further enhance this project in the future.
+It was an another exciting project. I enjoyed however, fine-tuning, and finding right mix take time and effort to further enhance this project in the future.
 
 
 
