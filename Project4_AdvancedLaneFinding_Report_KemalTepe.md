@@ -169,6 +169,11 @@ From the base points the sliding windows based histogram is used to obtain the m
 
 ### 6. Determine the curvature of the lane and vehicle position with respect to center.
 
+Curvature and vehicle position on the lane was obtained using the following functions provided in the code. The curvature and offset (vehicle position with respect to the center) are displayed on the video outputs.
+
+```def get_curvature(leftx, rightx, ploty)``` and ```def vehicle_lane_offset(left_fitx, right_fitx)```
+
+
 ### 7. Warp the detected lane boundaries back onto the original image.
 
 ### 8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
