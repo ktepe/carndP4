@@ -67,17 +67,56 @@ Below figure shows an checkerboard image before and after calibration:
 
 ![Calibration image with checkerboard](./output_images/calibration_undistorted_calibarion2.png) *one of the calibration images before and after calibration.* 
 
+
+### 2. Apply a distortion correction to raw images.
+
+After calibration parameters were obtained, the camera images can be processed using openCV function 
+```
+cv2.undistort(image, mtx, dist, None, mtx)
+```
+By using this the Road sign sample image is processed. The before and after images and a close up image is provided below.
+
 ![Road sign before and after calibration](./output_images/roadsign_undistored_road_sign.png) *Road sign image before and after calibration.* 
 
 ![Road sign before and after calibration](./output_images/undistorted_signs_vehicles.png) *Close up of undistored Road sign image, notice the road signs are straight as opposed to curved in the original image.* 
 
+### 3. Apply a perspective transform to rectify binary image ("birds-eye view").
+
+The undistorted images are processed by using perspective transform to obtain birds-eye view of the road from the camera images.
+OpenCV function is used to obtain the birds-eye images by using a transform matrix.
+
+```
+cv2.warpPerspective(undistorted_img, M, img_size, flags=cv2.INTER_LINEAR)
+```
+
+The transform matrix is obtained using the routine below with source and destination polygon. Finding right corners of the polygon was challenging since the undistorted image has a slight skew.
+
+```Python
+def get_M_Minv():
+    #corner of the source
+    left_bottom=[40,680]
+    left_top=[490,482]
+    right_top=[810,482]
+    right_bottom=[1250,680]
+    #source
+    src=np.float32([left_top, right_top, right_bottom, left_bottom])
+    #now destination
+    #slight skew in the rectangle
+    dst=np.float32([[0,0], [1280,0], [1250, 720],[40,720]])
+    #perspective transportmation  
+    M=cv2.getPerspectiveTransform(src, dst)
+    Minv=cv2.getPerspectiveTransform(dst, src)
+    
+    return M, Minv 
+```
+
+Undistorted and wrapped images are shown below.
+
+![undistorted and wraped image](./output_images/undistorted_road_sign_warpedlanes.png) *Close up of undistored Road sign image, notice the road signs are straight as opposed to curved in the original image.* 
 
 
-### 2. Apply a distortion correction to raw images.
 
-### 3. Use color transforms, gradients, etc., to create a thresholded binary image.
-
-### 4. Apply a perspective transform to rectify binary image ("birds-eye view").
+### 4. Use color transforms, gradients, etc., to create a thresholded binary image.
 
 
 ### 5. Detect lane pixels and fit to find the lane boundary.
